@@ -26,7 +26,7 @@ class User {
     }
 
     public function setPassword($password) {
-        if (preg_match("/[\'^£$%&*()}{@#~?><>,|=_+¬-]/", $this->password)) {
+        if (!preg_match("/[\'^£$%&*()}{@#~?><>,|=_+¬-]/", $password)) {
             throw new Exception("La password deve contenere almeno un carattere speciale");
         }
         $this->password = $password;
@@ -54,14 +54,11 @@ class User {
 }
 
 try {
-    $U1 = new User("Mario", "password1&&");
-    $U2 = new User("Francesca", "password2%%");
+    $U1 = new User("Mario", "password&");
 
     $U1->setAge("20");
-    $U2->setAge("21");
 
     $U1->printMe();
-    $U2->printMe();
 } catch (Exception $e) {
     echo $e . "<br><h3>" . $e->getMessage() . "</h3>";
 }

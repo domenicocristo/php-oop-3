@@ -16,7 +16,7 @@ class Computer {
     }
 
     public function setCodiceUnivoco($codiceUnivoco) {
-        if (is_numeric($codiceUnivoco)!=6) {
+        if (!is_numeric($codiceUnivoco) || strlen($codiceUnivoco) != 6) {
             throw new Exception("Il codice univoco deve contenere solo numeri e deve essere di 6 caratteri");
         } else {
             $this->codiceUnivoco = $codiceUnivoco;
@@ -28,7 +28,7 @@ class Computer {
     }
 
     public function setModello($modello) {
-        if (strlen($modello)<3 || strlen($modello)>20) {
+        if (strlen($modello) < 3 || strlen($modello) > 20) {
             throw new Exception("Il modello deve avere un minimo di 3 caratteri e un massimo di 20");
         } else {
             $this->modello = $modello;
@@ -40,8 +40,10 @@ class Computer {
     }
 
     public function setPrezzo($prezzo) {
-        if (strlen($prezzo)<0 || strlen($prezzo)>2000) {
-            throw new Exception("Il prezzo deve essere un valore intero compreso tra 0 e 2000");
+        if (!is_int($prezzo)) {
+            throw new Exception("Il prezzo deve essere un valore intero");
+        } if (strlen($prezzo) < 0 || strlen($prezzo) > 2000) {
+            throw new Exception("Il prezzo deve avere almeno un carattere e un massimo di 2000");
         } else {
             $this->prezzo = $prezzo;
         }
@@ -52,7 +54,7 @@ class Computer {
     }
 
     public function setMarca($marca) {
-        if (strlen($marca)<3 || strlen($marca)>20) {
+        if (strlen($marca) < 3 || strlen($marca) > 20) {
             throw new Exception("Il marca deve avere un minimo di 3 caratteri e un massimo di 20");
         } else {
             $this->marca = $marca;
@@ -69,7 +71,7 @@ class Computer {
 }
 
 try {
-    $C1 = new Computer("123456", "3'000,00");
+    $C1 = new Computer("123456", 3000);
 
     $C1->setMarca("Apple");
 
