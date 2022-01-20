@@ -26,7 +26,7 @@ class User {
     }
 
     public function setPassword($password) {
-        if (!preg_match("/[\'^£$%&*()}{@#~?><>,|=_+¬-]/", $password)) {
+        if (ctype_alnum($password)) {
             throw new Exception("La password deve contenere almeno un carattere speciale");
         }
         $this->password = $password;
